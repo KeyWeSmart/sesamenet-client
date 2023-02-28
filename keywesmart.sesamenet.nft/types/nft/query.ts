@@ -1242,22 +1242,22 @@ export const QueryDenomsAccessMapResponse_AccessMapEntry = {
 export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Queries a list of Supply items. */
-  Supply(request: QuerySupplyRequest): Promise<QuerySupplyResponse>;
-  /** Queries a list of Owner items. */
-  Owner(request: QueryOwnerRequest): Promise<QueryOwnerResponse>;
   /** Queries a list of Collection items. */
   Collection(request: QueryCollectionRequest): Promise<QueryCollectionResponse>;
+  /** Queries a list of Supply items. */
+  Supply(request: QuerySupplyRequest): Promise<QuerySupplyResponse>;
+  /** Queries a list of Denoms items. */
+  Denoms(request: QueryDenomsRequest): Promise<QueryDenomsResponse>;
   /** Queries a list of Denom items. */
   Denom(request: QueryDenomRequest): Promise<QueryDenomResponse>;
   /** Queries a list of DenomByName items. */
   DenomByName(request: QueryDenomByNameRequest): Promise<QueryDenomByNameResponse>;
-  /** Queries a list of Denoms items. */
-  Denoms(request: QueryDenomsRequest): Promise<QueryDenomsResponse>;
-  /** Queries a list of NFT items. */
-  NFT(request: QueryNFTRequest): Promise<QueryNFTResponse>;
   /** Queries a list of DenomsOfAddress items. */
   DenomsOfAddress(request: QueryDenomsOfAddressRequest): Promise<QueryDenomsOfAddressResponse>;
+  /** Queries a list of Owner items. */
+  Owner(request: QueryOwnerRequest): Promise<QueryOwnerResponse>;
+  /** Queries a list of NFT items. */
+  NFT(request: QueryNFTRequest): Promise<QueryNFTResponse>;
   /** Queries a list of DenomsAccessMap items. */
   DenomsAccessMap(request: QueryDenomsAccessMapRequest): Promise<QueryDenomsAccessMapResponse>;
 }
@@ -1267,14 +1267,14 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
-    this.Supply = this.Supply.bind(this);
-    this.Owner = this.Owner.bind(this);
     this.Collection = this.Collection.bind(this);
+    this.Supply = this.Supply.bind(this);
+    this.Denoms = this.Denoms.bind(this);
     this.Denom = this.Denom.bind(this);
     this.DenomByName = this.DenomByName.bind(this);
-    this.Denoms = this.Denoms.bind(this);
-    this.NFT = this.NFT.bind(this);
     this.DenomsOfAddress = this.DenomsOfAddress.bind(this);
+    this.Owner = this.Owner.bind(this);
+    this.NFT = this.NFT.bind(this);
     this.DenomsAccessMap = this.DenomsAccessMap.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
@@ -1283,22 +1283,22 @@ export class QueryClientImpl implements Query {
     return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 
+  Collection(request: QueryCollectionRequest): Promise<QueryCollectionResponse> {
+    const data = QueryCollectionRequest.encode(request).finish();
+    const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "Collection", data);
+    return promise.then((data) => QueryCollectionResponse.decode(new _m0.Reader(data)));
+  }
+
   Supply(request: QuerySupplyRequest): Promise<QuerySupplyResponse> {
     const data = QuerySupplyRequest.encode(request).finish();
     const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "Supply", data);
     return promise.then((data) => QuerySupplyResponse.decode(new _m0.Reader(data)));
   }
 
-  Owner(request: QueryOwnerRequest): Promise<QueryOwnerResponse> {
-    const data = QueryOwnerRequest.encode(request).finish();
-    const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "Owner", data);
-    return promise.then((data) => QueryOwnerResponse.decode(new _m0.Reader(data)));
-  }
-
-  Collection(request: QueryCollectionRequest): Promise<QueryCollectionResponse> {
-    const data = QueryCollectionRequest.encode(request).finish();
-    const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "Collection", data);
-    return promise.then((data) => QueryCollectionResponse.decode(new _m0.Reader(data)));
+  Denoms(request: QueryDenomsRequest): Promise<QueryDenomsResponse> {
+    const data = QueryDenomsRequest.encode(request).finish();
+    const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "Denoms", data);
+    return promise.then((data) => QueryDenomsResponse.decode(new _m0.Reader(data)));
   }
 
   Denom(request: QueryDenomRequest): Promise<QueryDenomResponse> {
@@ -1313,22 +1313,22 @@ export class QueryClientImpl implements Query {
     return promise.then((data) => QueryDenomByNameResponse.decode(new _m0.Reader(data)));
   }
 
-  Denoms(request: QueryDenomsRequest): Promise<QueryDenomsResponse> {
-    const data = QueryDenomsRequest.encode(request).finish();
-    const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "Denoms", data);
-    return promise.then((data) => QueryDenomsResponse.decode(new _m0.Reader(data)));
+  DenomsOfAddress(request: QueryDenomsOfAddressRequest): Promise<QueryDenomsOfAddressResponse> {
+    const data = QueryDenomsOfAddressRequest.encode(request).finish();
+    const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "DenomsOfAddress", data);
+    return promise.then((data) => QueryDenomsOfAddressResponse.decode(new _m0.Reader(data)));
+  }
+
+  Owner(request: QueryOwnerRequest): Promise<QueryOwnerResponse> {
+    const data = QueryOwnerRequest.encode(request).finish();
+    const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "Owner", data);
+    return promise.then((data) => QueryOwnerResponse.decode(new _m0.Reader(data)));
   }
 
   NFT(request: QueryNFTRequest): Promise<QueryNFTResponse> {
     const data = QueryNFTRequest.encode(request).finish();
     const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "NFT", data);
     return promise.then((data) => QueryNFTResponse.decode(new _m0.Reader(data)));
-  }
-
-  DenomsOfAddress(request: QueryDenomsOfAddressRequest): Promise<QueryDenomsOfAddressResponse> {
-    const data = QueryDenomsOfAddressRequest.encode(request).finish();
-    const promise = this.rpc.request("keywesmart.sesamenet.nft.Query", "DenomsOfAddress", data);
-    return promise.then((data) => QueryDenomsOfAddressResponse.decode(new _m0.Reader(data)));
   }
 
   DenomsAccessMap(request: QueryDenomsAccessMapRequest): Promise<QueryDenomsAccessMapResponse> {

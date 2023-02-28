@@ -183,6 +183,13 @@ export interface V1Beta1PageRequest {
    * is set.
    */
   count_total?: boolean;
+
+  /**
+   * reverse is set to true if results are to be returned in the descending order.
+   *
+   * Since: cosmos-sdk 0.43
+   */
+  reverse?: boolean;
 }
 
 /**
@@ -366,6 +373,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -408,6 +416,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -425,11 +434,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @tags Query
    * @name QueryDenomsOfAddress
    * @summary Queries a list of DenomsOfAddress items.
-   * @request GET:/sesamenet/nft/denoms/{address}
+   * @request GET:/sesamenet/nft/denoms/address/{address}
    */
   queryDenomsOfAddress = (address: string, params: RequestParams = {}) =>
     this.request<NftQueryDenomsOfAddressResponse, RpcStatus>({
-      path: `/sesamenet/nft/denoms/${address}`,
+      path: `/sesamenet/nft/denoms/address/${address}`,
       method: "GET",
       format: "json",
       ...params,
@@ -441,11 +450,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @tags Query
    * @name QueryDenom
    * @summary Queries a list of Denom items.
-   * @request GET:/sesamenet/nft/denoms/{denom_id}
+   * @request GET:/sesamenet/nft/denoms/id/{denom_id}
    */
   queryDenom = (denomId: string, params: RequestParams = {}) =>
     this.request<NftQueryDenomResponse, RpcStatus>({
-      path: `/sesamenet/nft/denoms/${denomId}`,
+      path: `/sesamenet/nft/denoms/id/${denomId}`,
       method: "GET",
       format: "json",
       ...params,
@@ -457,11 +466,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @tags Query
    * @name QueryDenomByName
    * @summary Queries a list of DenomByName items.
-   * @request GET:/sesamenet/nft/denoms/{denom_name}
+   * @request GET:/sesamenet/nft/denoms/name/{denom_name}
    */
   queryDenomByName = (denomName: string, params: RequestParams = {}) =>
     this.request<NftQueryDenomByNameResponse, RpcStatus>({
-      path: `/sesamenet/nft/denoms/${denomName}`,
+      path: `/sesamenet/nft/denoms/name/${denomName}`,
       method: "GET",
       format: "json",
       ...params,
@@ -499,6 +508,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
